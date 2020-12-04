@@ -1,0 +1,1 @@
+In this project, I'm testing Sven's idea of hidden assassin's game
