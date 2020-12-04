@@ -44,6 +44,14 @@ const byte Blue = 2;
 const byte Red = 3;
 const byte Green = 4;
 const byte Purple = 5;
+const byte LightBlue = 6;
+const byte Pink = 7;
+const byte Orange = 8;
+const byte Yellow = 9;
+const byte LightPurple = 10;
+
+const byte LightGreen = 13;
+const byte LightestBlue = 14;
 
 
 // ----------------------------------------------------------------------------------------------------
@@ -95,11 +103,18 @@ struct pointOnMatrix {
   byte columnCoordinate;
 };
 
-pointOnMatrix Player[4] = {
-  {0,0},
-  {31,0},
-  {0,31},
-  {31,31}
+struct Player {
+  byte lineCoordinate;
+  byte columnCoordinate;
+  byte colour;
+};
+
+
+Player players[4] = {
+  {0,0,Red},
+  {31,0,Blue},
+  {0,31,Green},
+  {31,31,Yellow}
 };
 
 unsigned long lastMillis = 0;
@@ -146,29 +161,11 @@ if(millis() - lastMillis > 200) {
 }
     checkAllButtons();
 
-  for(byte i = 0; i<4; i++) {
-    if (Player[i].lineCoordinate > 0 && playerButtonPushed[i][0]) {
-      Player[i].lineCoordinate--;
-    }
-    if (Player[i].lineCoordinate < 31 && playerButtonPushed[i][2]) {
-      Player[i].lineCoordinate++;
-    }
-    
-    if (Player[i].columnCoordinate > 0 && playerButtonPushed[i][3]) {
-      Player[i].columnCoordinate--;
-    }
-    
-    if (Player[i].columnCoordinate < 31 && playerButtonPushed[i][1]) {
-      Player[i].columnCoordinate++;
-    }
-  }
+
 
   clearLEDMatrix();
   
-  LEDMatrix[Player[0].lineCoordinate][Player[0].columnCoordinate] = Blue;
-  LEDMatrix[Player[1].lineCoordinate][Player[1].columnCoordinate] = Red;
-  LEDMatrix[Player[2].lineCoordinate][Player[2].columnCoordinate] = Green;
-  LEDMatrix[Player[3].lineCoordinate][Player[3].columnCoordinate] = Purple;
+
 
   outputDisplay();
   delay(1);
