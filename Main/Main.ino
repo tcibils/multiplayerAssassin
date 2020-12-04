@@ -97,29 +97,35 @@ byte playerButtonPushed[NUMBER_PLAYERS][12] = {
 // ----------------------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------------------------------------
 
-// Useful struct
-struct pointOnMatrix {
-  byte lineCoordinate;
-  byte columnCoordinate;
-};
+#define initialPlayerMovingSpeed 250  // Base speed of all players, in miliseconds
+
 
 struct Player {
   byte lineCoordinate;
   byte columnCoordinate;
-  byte colour;
+  byte colour; 
+  byte isAlive;                                   // 1 means alive, 0 means dead
+  byte isActive;                                  // 1 means that the player is actually playing, 0 means that he isn't
+  unsigned int movingSpeed;                       // Speed at which the player will move
+  unsigned long lastMovingTime;                   // When did the player move for the last time
+
 };
 
 
 Player players[4] = {
-  {0,0,Red},
-  {31,0,Blue},
-  {0,31,Green},
-  {31,31,Yellow}
+  {1,1,Red,1,1,initialPlayerMovingSpeed,0},
+  {30,1,Blue,1,1,initialPlayerMovingSpeed,0},
+  {1,30,Green,1,1,initialPlayerMovingSpeed,0},
+  {30,30,Yellow,1,1,initialPlayerMovingSpeed,0}
 };
 
 unsigned long lastMillis = 0;
 unsigned const int growthSpeed = 1500;  // In miliseconds. Can be used to make something happen every X miliseconds.
 
+#define directionNorth 4
+#define directionEast 5
+#define directionSouth 6
+#define directionWest 7
 
 
 
